@@ -1,0 +1,31 @@
+#include "stm32f10x.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "start_task.h"
+#include "bsp_led.h"
+#include "delay.h"
+#include "bsp_usart.h"
+#include "bsp_hx711_1.h"
+#include "bsp_hx711_2.h"
+#include "bsp_hx711_3.h"
+#include "bsp_hx711_4.h"
+RCC_ClocksTypeDef RCC_Clocks;//检验时钟
+int main()
+{
+	RCC_GetClocksFreq(&RCC_Clocks);
+	delay_init();
+	mx_led_init();
+	mx_uart_init();
+	Init_1_HX711pin();
+	Get_Maopi1();//重新获取毛皮重量
+	
+		Init_1_HX711pin();
+	Get_Maopi1();//重新获取毛皮重量
+		Init_1_HX711pin();
+	Get_Maopi1();//重新获取毛皮重量
+		Init_1_HX711pin();
+	Get_Maopi1();//重新获取毛皮重量
+	create_start_task();	//创建开始任务            
+    vTaskStartScheduler();  //开启任务调度
+	while(1){}
+}
